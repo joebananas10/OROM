@@ -1,0 +1,100 @@
+// example JSON string to represent the Open Reporting Object Model
+{
+   "title": "Sample Report",
+   "description": "This is a sample report.",
+   "creator": "Some Guy",
+   "datecreated": null,
+   "header": [
+      {
+         "main": "Sample Report",
+         "sub": null
+         "formatting": [
+            {
+               "mainfont": null,
+               "mainsize": 14,
+               "mainweight": "bold",
+               "subfont": null,
+               "subsize": 11,
+               "subweight": "bolditalic"
+            }
+         ]
+      }
+   ],
+   "parameters": [
+      {
+         "prompt": "Please enter a start date",
+         "value": "10/1/2024",
+         "type": "calendar",
+         "contentvar": "@a1",
+         "expression ": null
+      },
+      {
+         "prompt": "Please enter an end date",
+         "value": "NOW()",
+         "type": "calendar",
+         "contentvar": "@a2",
+         "expression ": null
+      },
+      {
+         "prompt": "Enter a user name",
+         "value": "Current User",
+         "type": "text",
+         "contentvar": "@a3",
+         "expression ": null
+      },
+      {
+         "prompt": "Select Program Filter",
+         "value": null,
+         "type": "checkbox",
+         "contentvar": "@a4",
+         "expression ": "SELECT * FROM JobProgram WHERE Active = 1"
+      },
+      {
+         "prompt": "Select a Manager name",
+         "value": null,
+         "type": "list",
+         "contentvar": "@a5",
+         "expression": "exec GetManagerList"
+      }
+   ],
+   "content": [
+      {
+         "type": "default",
+         "code": "SELECT * FROM Table1 Where (CurDate Between @a1 AND @a2) AND Program=@a4",
+         "formatting": [
+            {
+               "font": null,
+               "size": 12,
+               "weight": null
+            }
+         ]
+      },
+      {
+         "type": banded,
+         "code": "SELECT * FROM Table2 WHERE CurrentUser=@a3 AND MgrID=@a5",
+         "formatting": [
+            {
+               "font": null,
+               "size": 12,
+               "weight": null
+            }
+         ]
+      }
+   ],
+   "footer": [
+      {
+         "main": "test footer",
+         "sub": null,
+         "formatting": [
+            {
+               "mainfont": null,
+               "mainsize": 8,
+               "mainweight": "italic",
+               "subfont": null,
+               "subsize": 6,
+               "subweight": null
+            }
+         ]
+      }
+   ]
+}
