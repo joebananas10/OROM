@@ -1,4 +1,5 @@
-// example JSON string to represent the Open Reporting Object Model
+// example JSON string to represent the Open Reporting Object Model - OROM
+// Javascript JSON file
 {
    "title": "Sample Report",
    "description": "This is a sample report.",
