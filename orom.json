@@ -1,5 +1,6 @@
 // example JSON string to represent the Open Reporting Object Model - OROM
 // Javascript JSON file
+header('Content-Type: application/json');
 {
    "title": "Sample Report",
    "description": "This is a sample report.",
