@@ -3,101 +3,97 @@
 header('Content-Type: application/json');
 Content-Disposition: attachment; filename=orom.json
 {
-   "title": "Sample Report",
-   "description": "This is a sample report.",
-   "creator": "Some Guy",
-   "datecreated": null,
-   "header": [
-      {
-         "main": "Sample Report",
-         "sub": null
-         "formatting": [
-            {
-               "mainfont": null,
-               "mainsize": 14,
-               "mainweight": "bold",
-               "subfont": null,
-               "subsize": 11,
-               "subweight": "bolditalic"
-            }
-         ]
+  "title": "Sample Report",
+  "description": "This is a sample report.",
+  "creator": "Some Guy",
+  "datecreated": null,
+  "userpromptwidth": 400,
+  "userpromptheight": 365,
+  "header": {
+    "maintitle": "This is the title",
+    "subtitle": "",
+    "formatting": {
+      "mainfont": "Arial",
+      "mainsize": "11",
+      "mainweight": "",
+      "subfont": "",
+      "subsize": 0,
+      "subweight": ""
+    }
+  },
+  "footer": {
+    "maintitle": "",
+    "subtitle": "",
+    "formatting": {
+      "mainfont": "",
+      "mainsize": "0",
+      "mainweight": "",
+      "subfont": "",
+      "subsize": 0,
+      "subweight": ""
+    }
+  },
+  "parameters": {
+    "parameter1": {
+      "prompt": "Please enter a start date",
+      "fieldvalue": "10/1/2024",
+      "type": "calendar",
+      "contentvar": "@a1",
+      "expression": ""
+    },
+    "parameter2": {
+      "prompt": "Please enter an end date",
+      "fieldvalue": "NOW()",
+      "type": "calendar",
+      "contentvar": "@a2",
+      "expression": ""
+    },
+    "parameter3": {
+      "prompt": "Enter a user name",
+      "fieldvalue": "Current User",
+      "type": "text",
+      "contentvar": "@a3",
+      "expression": ""
+    },
+    "parameter4": {
+      "prompt": "Select Marital Status Filter",
+      "fieldvalue": "",
+      "type": "checkbox",
+      "contentvar": "@a4",
+      "expression": "SELECT Description, StatusID FROM dbo.MaritalStatus WHERE Active = 1"
+    },
+    "parameter5": {
+      "prompt": "Select a Manager name",
+      "fieldvalue": "",
+      "type": "list",
+      "contentvar": "@a5",
+      "expression": "SELECT u.LastName + ', ' + u.FirstName AS 'FullName' FROM Employee U INNER JOIN ProviderUser pu ON u.EmployeeID = pu.UserID INNER JOIN EmployeeRole rq ON u.EmployeeID = rq.EmployeeID WHERE (u.IsActive = 1 AND rq.RoleID = 10) ORDER BY u.LastName,u.FirstName"
+    }
+  },
+  "content": {
+    "content1": {
+      "type": "default",
+      "code": "SELECT * FROM Table1 Where (CurDate Between @a1 AND @a2) AND Program=@a4",
+      "formatting": {
+        "mainfont": "",
+        "mainsize": 12,
+        "mainweight": "",
+        "subfont": "",
+        "subsize": 12,
+        "subweight": ""
       }
-   ],
-   "parameters": [
-      {
-         "prompt": "Please enter a start date",
-         "value": "10/1/2024",
-         "type": "calendar",
-         "contentvar": "@a1",
-         "expression ": null
-      },
-      {
-         "prompt": "Please enter an end date",
-         "value": "NOW()",
-         "type": "calendar",
-         "contentvar": "@a2",
-         "expression ": null
-      },
-      {
-         "prompt": "Enter a user name",
-         "value": "Current User",
-         "type": "text",
-         "contentvar": "@a3",
-         "expression ": null
-      },
-      {
-         "prompt": "Select Program Filter",
-         "value": null,
-         "type": "checkbox",
-         "contentvar": "@a4",
-         "expression ": "SELECT * FROM JobProgram WHERE Active = 1"
-      },
-      {
-         "prompt": "Select a Manager name",
-         "value": null,
-         "type": "list",
-         "contentvar": "@a5",
-         "expression": "exec GetManagerList"
+    },
+    "content2": {
+      "type": "banded",
+      "code": "SELECT * FROM Table2 WHERE CurrentUser=@a3 AND MgrID=@a5",
+      "formatting": {
+        "mainfont": null,
+        "mainsize": 12,
+        "mainweight": "",
+        "subfont": "",
+        "subsize": 12,
+        "subweight": ""
       }
-   ],
-   "content": [
-      {
-         "type": "default",
-         "code": "SELECT * FROM Table1 Where (CurDate Between @a1 AND @a2) AND Program=@a4",
-         "formatting": [
-            {
-               "font": null,
-               "size": 12,
-               "weight": null
-            }
-         ]
-      },
-      {
-         "type": banded,
-         "code": "SELECT * FROM Table2 WHERE CurrentUser=@a3 AND MgrID=@a5",
-         "formatting": [
-            {
-               "font": null,
-               "size": 12,
-               "weight": null
-            }
-         ]
-      }
-   ],
-   "footer": [
-      {
-         "main": "test footer",
-         "sub": null,
-         "formatting": [
-            {
-               "mainfont": null,
-               "mainsize": 8,
-               "mainweight": "italic",
-               "subfont": null,
-               "subsize": 6,
-               "subweight": null
-            }
-         ]
-      }
-   ]
+    }
+  }
 }
